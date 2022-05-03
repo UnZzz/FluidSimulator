@@ -1,6 +1,6 @@
 #include "Simulator.h"
 int main(int argc, char* argv[]) {
-	Simulator simulator(4,640,480);
+	Simulator simulator(8,640);
 	while (true) {
 		simulator.Event();
 		if (simulator.quit)

@@ -1,19 +1,18 @@
 #include "Simulator.h"
 #include <iostream>
-Simulator::Simulator(int pixel_size, int width, int height):
+Simulator::Simulator(int pixel_size, int N):
 	quit(false)
 {	
 	if (SDL_Init(SDL_INIT_VIDEO)) {
 		SDL_Log("SDL¿â³õÊ¼»¯Ê§°Ü: %s", SDL_GetError());
 		return;
 	}
-	window_ = SDL_CreateWindow("FluidSimulator", 400, 200, width, height, 0);
+	window_ = SDL_CreateWindow("FluidSimulator", 100, 100, N, N, 0);
 	if (window_ == nullptr) {
 		SDL_Log("´°¿Ú³õÊ¼»¯Ê§°Ü: %s", SDL_GetError());
 		return;
 	}
-
-	fluid_grid_ = FluidGrid(window_, pixel_size, width, height);
+	fluid_grid_ = FluidGrid(window_, pixel_size, N);
 }
 
 Simulator::~Simulator() {
@@ -33,10 +32,18 @@ void Simulator::Event() {
 			Quit();
 			break;
 		}
+
+
+		static bool draw = false;
 		if (event.type == SDL_MOUSEBUTTONDOWN) {
+			draw = true;
+		}
+		if (event.type == SDL_MOUSEBUTTONUP) {
+			draw = false;
+		}
+		if (draw) {
 			int x = event.button.x;
 			int y = event.button.y;
-			std::cout << "x:" << x << ' ' << "y:" << y << std::endl;
 			fluid_grid_.Put(x, y);
 		}
 	}

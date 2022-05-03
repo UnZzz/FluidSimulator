@@ -6,7 +6,7 @@
 class Simulator
 {
 public:
-	Simulator(int pixel_size,int width,int height);
+	Simulator(int pixel_size,int N);
 	~Simulator();
 	void Init();
 	void Event();
@@ -17,6 +17,5 @@ public:
 private:
 	FluidGrid fluid_grid_;
 	SDL_Window* window_ ;
-	int width,height;
 };
 
